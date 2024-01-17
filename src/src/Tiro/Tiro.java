@@ -35,6 +35,9 @@ public class Tiro {
     }
 
 
+    public Rectangle getBounds() {
+        return new Rectangle(x,y,largura,altura);
+    }
 
     public static int getVELOCIDADE() {
         return VELOCIDADE;

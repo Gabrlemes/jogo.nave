@@ -3,7 +3,7 @@ package Enemy;
 import java.awt.*;
 import javax.swing.ImageIcon;
 
-public class Enemy1 {
+public class Enemy2 {
     private Image imagem;
     private int x, y;
     private int largura, altura;
@@ -12,14 +12,14 @@ public class Enemy1 {
     //    private static final int LARGURA = 938;
     private static int VELOCIDADE = 2;
 
-    public Enemy1(int x, int y) {
+    public Enemy2(int x, int y) {
         this.x = x;
         this.y = y;
         isVisivel = true;
     }
 
     public void load() {
-        ImageIcon referencia = new ImageIcon("src\\res\\inimigo1.png");
+        ImageIcon referencia = new ImageIcon("src\\res\\inimigo2.png");
         imagem = referencia.getImage();
 
         this.largura = imagem.getWidth(null);
@@ -31,10 +31,6 @@ public class Enemy1 {
 //        if(this.x > LARGURA){
 //            isVisivel = false;
 //        }
-    }
-
-    public Rectangle getBounds() {
-        return new Rectangle(x,y,largura,altura);
     }
 
     public static int getVELOCIDADE() {
@@ -63,4 +59,3 @@ public class Enemy1 {
         return imagem;
     }
 }
-

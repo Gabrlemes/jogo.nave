@@ -1,5 +1,6 @@
 package Game;
 
+import Enemy.Enemy2;
 import Tiro.Tiro;
 import Player.Player;
 import Enemy.Enemy1;
@@ -97,6 +98,17 @@ public class Fase extends JPanel implements ActionListener {
         }
 
         repaint();
+    }
+
+
+    public void checarColisoes() {
+        Rectangle formaNave = player.getBounds();
+        Rectangle formaEnemy1;
+        Rectangle formaTiro;
+
+        for(int i = 0; i <enemy1.size(); i++) {
+            Enemy1 tempEnemy1 = enemy1.get(i);
+        }
     }
 
     private class TecladoAdapter extends KeyAdapter {

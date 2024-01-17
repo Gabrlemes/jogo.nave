@@ -8,7 +8,7 @@ public class Container extends JFrame {
 
         add(new Fase());
         setTitle("spacBUM?");
-        setSize(1400,728);
+        setSize(1024,728);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         this.setResizable(false);

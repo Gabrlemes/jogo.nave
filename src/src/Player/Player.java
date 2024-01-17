@@ -3,7 +3,7 @@ package Player;
 import Tiro.Tiro;
 
 import javax.swing.*;
-import java.awt.Image;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.IllegalFormatWidthException;
@@ -40,6 +40,10 @@ public class Player {
 
     public void tiroSimples() {
         this.tiros.add(new Tiro(x+largura, y+(altura/2)));
+    }
+
+    public Rectangle getBounds() {
+        return new Rectangle(x,y,largura,altura);
     }
 
     public void keyPressed(KeyEvent tecla) {

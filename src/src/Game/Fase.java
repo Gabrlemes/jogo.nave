@@ -21,8 +21,10 @@ public class Fase extends JPanel implements ActionListener {
     private Player player;
     private Timer timer;
     private List<Enemy1> enemy1;
+    private boolean emJogo;
 
 
+    //fundo do jogo
     public Fase() {
         setFocusable(true);
         setDoubleBuffered(true);
@@ -39,6 +41,7 @@ public class Fase extends JPanel implements ActionListener {
         timer.start();
 
         inicializaInimigo();
+        emJogo = true;
     }
 
     public void inicializaInimigo() {
@@ -55,20 +58,27 @@ public class Fase extends JPanel implements ActionListener {
 
     public void paint(Graphics g) {
         Graphics2D graficos = (Graphics2D) g;
-        graficos.drawImage(fundo, 0, 0, null);
-        graficos.drawImage(player.getImagem(), player.getX(), player.getY(), this);
+        if(emJogo == true) {
+            graficos.drawImage(fundo, 0, 0, null);
+            graficos.drawImage(player.getImagem(), player.getX(), player.getY(), this);
 
-        List<Tiro> tiros = player.getTiros();
-        for(int i = 0; i < tiros.size(); i++) {
-            Tiro m = tiros.get(i);
-            m.load();
-            graficos.drawImage(m.getImagem(), m.getX(), m.getY(), this);
+            List<Tiro> tiros = player.getTiros();
+            for(int i = 0; i < tiros.size(); i++) {
+                Tiro m = tiros.get(i);
+                m.load();
+                graficos.drawImage(m.getImagem(), m.getX(), m.getY(), this);
+            }
+
+            for (int o = 0; o < enemy1.size(); o++) {
+                Enemy1 in = enemy1.get(o);
+                in.load();
+                graficos.drawImage(in.getImagem(), in.getX(), in.getY(), this);
+            }
+            //tela game over
         }
-
-        for (int o = 0; o < enemy1.size(); o++) {
-            Enemy1 in = enemy1.get(o);
-            in.load();
-            graficos.drawImage(in.getImagem(), in.getX(), in.getY(), this);
+        else{
+            ImageIcon fimJogo = new ImageIcon("res\\over.jpg");
+            graficos.drawImage(fimJogo.getImage(), 0, 0, null);
         }
 
         g.dispose();
@@ -96,19 +106,41 @@ public class Fase extends JPanel implements ActionListener {
                 enemy1.remove(o);
             }
         }
-
+        checarColisoes();
         repaint();
     }
 
 
+    //colisões
     public void checarColisoes() {
         Rectangle formaNave = player.getBounds();
         Rectangle formaEnemy1;
         Rectangle formaTiro;
 
-        for(int i = 0; i <enemy1.size(); i++) {
+        for(int i = 0; i < enemy1.size(); i++) {
             Enemy1 tempEnemy1 = enemy1.get(i);
+            formaEnemy1 = tempEnemy1.getBounds();
+            if(formaNave.intersects(formaEnemy1)) {
+                player.setVisivel(false);
+                tempEnemy1.setVisivel(false);
+                emJogo = false;
+            }
         }
+
+        List<Tiro> tiros = player.getTiros();
+        for (int j = 0; j < tiros.size(); j++){
+            Tiro tempTiro = tiros.get(j);
+            formaTiro = tempTiro.getBounds();
+            for (int o = 0; o < enemy1.size(); o++) {
+                Enemy1 tempEnemy1 = enemy1.get(o);
+                formaEnemy1 = tempEnemy1.getBounds();
+                if(formaTiro.intersects(formaEnemy1)) {
+                    tempEnemy1.setVisivel(false);
+                    tempTiro.setVisivel(false);
+                }
+            }
+        }
+
     }
 
     private class TecladoAdapter extends KeyAdapter {

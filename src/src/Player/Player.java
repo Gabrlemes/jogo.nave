@@ -16,15 +16,18 @@ public class Player {
     private Image imagem;
     private int altura, largura;
     private List <Tiro> tiros;
+    private boolean isVisivel;
 
 
     public Player(){
         this.x = 100;
         this.y = 100;
+        isVisivel = true;
 
         tiros = new ArrayList<Tiro>();
     }
 
+    //imagem nave
     public void load(){
         ImageIcon referencia = new ImageIcon("src\\res\\nave.png");
         imagem = referencia.getImage();
@@ -38,6 +41,7 @@ public class Player {
         y += dy;
     }
 
+    //junção de tiro e nave
     public void tiroSimples() {
         this.tiros.add(new Tiro(x+largura, y+(altura/2)));
     }
@@ -46,6 +50,7 @@ public class Player {
         return new Rectangle(x,y,largura,altura);
     }
 
+    //teclas movimento
     public void keyPressed(KeyEvent tecla) {
         int codigo = tecla.getKeyCode();
 
@@ -82,6 +87,14 @@ public class Player {
         if (codigo == KeyEvent.VK_RIGHT) {
             dx=0;
         }
+    }
+
+    public boolean isVisivel() {
+        return isVisivel;
+    }
+
+    public void setVisivel(boolean visivel) {
+        isVisivel = visivel;
     }
 
     public int getX() {

@@ -34,7 +34,6 @@ public class Tiro {
         }
     }
 
-
     public Rectangle getBounds() {
         return new Rectangle(x,y,largura,altura);
     }
